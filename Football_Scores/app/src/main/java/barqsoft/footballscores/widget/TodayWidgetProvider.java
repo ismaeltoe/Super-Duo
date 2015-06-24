@@ -7,10 +7,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import barqsoft.footballscores.MainActivity;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.service.myFetchService;
 
 /**
  * Created by Ismael on 24/06/2015.
@@ -19,38 +22,19 @@ public class TodayWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        int homeIcon = R.drawable.arsenal;
-        int awayIcon = R.drawable.chelsea;
-        String homeName = "Arsenal";
-        String awayName = "Chelsea";
-        String score = "0 - 6";
+        context.startService(new Intent(context, TodayWidgetIntentService.class));
+    }
 
-        for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_today_small);
+    @Override
+    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
+        context.startService(new Intent(context, TodayWidgetIntentService.class));
+    }
 
-            // Add the data to the RemoteViews
-            views.setImageViewResource(R.id.widget_home_icon, homeIcon);
-            views.setImageViewResource(R.id.widget_away_icon, awayIcon);
-            views.setTextViewText(R.id.widget_home_name, homeName);
-            views.setTextViewText(R.id.widget_away_name, awayName);
-            views.setTextViewText(R.id.widget_score, score);
-
-            // Content Descriptions for RemoteViews were only added in ICS MR1
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                views.setContentDescription(R.id.widget_home_icon, null);
-                views.setContentDescription(R.id.widget_away_icon, null);
-                views.setContentDescription(R.id.widget_home_name, homeName);
-                views.setContentDescription(R.id.widget_away_name, awayName);
-                views.setContentDescription(R.id.widget_score, score);
-            }
-
-            Intent launchIntent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-
-            // Tell the AppWidgetManager to perform an update on the current app widget
-            appWidgetManager.updateAppWidget(appWidgetId, views);
+    @Override
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
+        super.onReceive(context, intent);
+        if (myFetchService.ACTION_DATA_UPDATED.equals(intent.getAction())) {
+            context.startService(new Intent(context, TodayWidgetIntentService.class));
         }
     }
 }
