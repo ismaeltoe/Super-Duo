@@ -31,9 +31,6 @@
 
     <string name="title_about_activity">About</string>
 
-    <string name="a11y_home">Home: <xliff:g id="home">%1$s</xliff:g></string>
-    <string name="a11y_away">Away: <xliff:g id="away">%1$s</xliff:g></string>
-    <string name="a11y_time">Time: <xliff:g id="time">%1$s</xliff:g></string>
     <string name="a11y_score">Score: <xliff:g id="score">%1$s</xliff:g></string>
 
     <string name="title_widget_today">Football Scores</string>

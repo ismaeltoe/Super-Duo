@@ -48,15 +48,15 @@ public class scoresAdapter extends CursorAdapter
 
         String home = cursor.getString(COL_HOME);
         mHolder.home_name.setText(home);
-        mHolder.home_name.setContentDescription(context.getString(R.string.a11y_home, home));
+        mHolder.home_name.setContentDescription(home);
 
         String away = cursor.getString(COL_AWAY);
         mHolder.away_name.setText(away);
-        mHolder.away_name.setContentDescription(context.getString(R.string.a11y_away, away));
+        mHolder.away_name.setContentDescription(away);
 
         String time = cursor.getString(COL_MATCHTIME);
         mHolder.date.setText(time);
-        mHolder.date.setContentDescription(context.getString(R.string.a11y_time, time));
+        mHolder.date.setContentDescription(time);
 
         String score = Utilies.getScores(cursor.getInt(COL_HOME_GOALS), cursor.getInt(COL_AWAY_GOALS));
         mHolder.score.setText(score);
