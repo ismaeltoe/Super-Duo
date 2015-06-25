@@ -14,7 +14,6 @@ import java.util.Date;
 
 import barqsoft.footballscores.DatabaseContract;
 import barqsoft.footballscores.MainActivity;
-import barqsoft.footballscores.MainScreenFragment;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.Utilies;
 import barqsoft.footballscores.scoresAdapter;
@@ -57,12 +56,13 @@ public class TodayWidgetIntentService extends IntentService {
         String awayName = data.getString(scoresAdapter.COL_AWAY);
         String score = Utilies.getScores(data.getInt(scoresAdapter.COL_HOME_GOALS),
                 data.getInt(scoresAdapter.COL_AWAY_GOALS));
+        String time = data.getString(scoresAdapter.COL_MATCHTIME);
 
         data.close();
 
         // Perform this loop procedure for each Today widget
         for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_today_small);
+            RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_today);
 
             // Add the data to the RemoteViews
             views.setImageViewResource(R.id.widget_home_icon,
@@ -72,6 +72,7 @@ public class TodayWidgetIntentService extends IntentService {
             views.setTextViewText(R.id.widget_home_name, homeName);
             views.setTextViewText(R.id.widget_away_name, awayName);
             views.setTextViewText(R.id.widget_score, score);
+            views.setTextViewText(R.id.widget_time, time);
 
             // Content Descriptions for RemoteViews were only added in ICS MR1
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -80,6 +81,7 @@ public class TodayWidgetIntentService extends IntentService {
                 views.setContentDescription(R.id.widget_home_name, homeName);
                 views.setContentDescription(R.id.widget_away_name, awayName);
                 views.setContentDescription(R.id.widget_score, score);
+                views.setContentDescription(R.id.widget_time, time);
             }
 
             // Create an Intent to launch MainActivity

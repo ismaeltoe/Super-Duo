@@ -1,18 +1,12 @@
 package barqsoft.footballscores.widget;
 
-import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.RemoteViews;
 
-import barqsoft.footballscores.MainActivity;
-import barqsoft.footballscores.R;
 import barqsoft.footballscores.service.myFetchService;
 
 /**
