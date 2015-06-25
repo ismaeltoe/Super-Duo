@@ -58,6 +58,8 @@ public class TodayWidgetIntentService extends IntentService {
         String score = Utilies.getScores(data.getInt(scoresAdapter.COL_HOME_GOALS),
                 data.getInt(scoresAdapter.COL_AWAY_GOALS));
 
+        data.close();
+
         // Perform this loop procedure for each Today widget
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget_today_small);
