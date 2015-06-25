@@ -88,13 +88,13 @@ public class scoresAdapter extends CursorAdapter
 
             TextView match_day = (TextView) v.findViewById(R.id.matchday_textview);
 
-            String matchDay = Utilies.getMatchDay(cursor.getInt(COL_MATCHDAY),
+            String matchDay = Utilies.getMatchDay(context, cursor.getInt(COL_MATCHDAY),
                     cursor.getInt(COL_LEAGUE));
             match_day.setText(matchDay);
             match_day.setContentDescription(matchDay);
 
             TextView leagueView = (TextView) v.findViewById(R.id.league_textview);
-            String league = Utilies.getLeague(cursor.getInt(COL_LEAGUE));
+            String league = Utilies.getLeague(context, cursor.getInt(COL_LEAGUE));
             leagueView.setText(league);
 
             Button share_button = (Button) v.findViewById(R.id.share_button);
